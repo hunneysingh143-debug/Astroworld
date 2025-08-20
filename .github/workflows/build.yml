@@ -42,9 +42,10 @@ jobs:
       - name: Install go-msi
         shell: pwsh
         run: |
-          Invoke-WebRequest -Uri "https://github.com/mh-cbon/go-msi/releases/download/v1.0.3/go-msi-1.0.3-windows-amd64.zip" -OutFile go-msi.zip
+          Invoke-WebRequest -Uri "https://github.com/rtrvdn/go-msi/releases/download/v1.0.3/go-msi-1.0.3-windows-amd64.zip" -OutFile go-msi.zip
           Expand-Archive go-msi.zip -DestinationPath "C:\Program Files\go-msi"
           echo "C:\Program Files\go-msi" | Out-File -Append -FilePath $env:GITHUB_PATH
+
 
       - name: Build Windows Installer MSI from exe file
         uses: AliceOh/CreateWindowsInstaller@1.0.0
