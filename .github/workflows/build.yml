@@ -39,12 +39,12 @@ jobs:
           if not exist application mkdir application
           copy dist\Astroworld.exe application\
 
-      - name: Install go-msi
+      - name: Install go-msi (reliable mirror)
         shell: pwsh
         run: |
-          Invoke-WebRequest -Uri "https://github.com/rtrvdn/go-msi/releases/download/v1.0.3/go-msi-1.0.3-windows-amd64.zip" -OutFile go-msi.zip
-          Expand-Archive go-msi.zip -DestinationPath "C:\Program Files\go-msi"
-          echo "C:\Program Files\go-msi" | Out-File -Append -FilePath $env:GITHUB_PATH
+          Invoke-WebRequest -Uri "https://go-msi.github.io/releases/go-msi-1.0.3-windows-amd64.zip" -OutFile go-msi.zip
+          Expand-Archive go-msi.zip -DestinationPath "C:\go-msi"
+          echo "C:\go-msi" | Out-File -Append -FilePath $env:GITHUB_PATH
 
 
       - name: Build Windows Installer MSI from exe file
