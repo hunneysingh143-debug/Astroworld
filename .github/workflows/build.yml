@@ -33,10 +33,16 @@ jobs:
         run: |
           if exist build rmdir /s /q build
 
+      - name: Prepare application folder for MSI
+        shell: cmd
+        run: |
+          if not exist application mkdir application
+          copy dist\Astroworld.exe application\
+
       - name: Build Windows Installer MSI from exe file
         uses: AliceOh/CreateWindowsInstaller@1.0.0
         with:
-          exefile: dist/Astroworld.exe
+          exefile: application\Astroworld.exe
           version: 1.0.0
 
       - name: Upload MSI artifact
