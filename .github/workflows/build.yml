@@ -39,24 +39,29 @@ jobs:
           if not exist application mkdir application
           copy dist\Astroworld.exe application\
 
-      - name: Install go-msi (reliable mirror)
+       # 5️⃣ Build MSI using WiX Toolset
+      - name: Compile MSI with WiX
         shell: pwsh
         run: |
-          Invoke-WebRequest -Uri "https://go-msi.github.io/releases/go-msi-1.0.3-windows-amd64.zip" -OutFile go-msi.zip
-          Expand-Archive go-msi.zip -DestinationPath "C:\go-msi"
-          echo "C:\go-msi" | Out-File -Append -FilePath $env:GITHUB_PATH
+          # Path to your built EXE
+          $env:AstroworldDir = "$(pwd)\application"
 
+          # Compile WiX XML to object
+          candle.exe wix/installer.wxs -dAstroworldDir="%AstroworldDir%"
 
-      - name: Build Windows Installer MSI from exe file
-        uses: AliceOh/CreateWindowsInstaller@1.0.0
-        with:
-          exefile: application\Astroworld.exe
-          version: 1.0.0
+          # Link object to produce MSI
+          light.exe -ext WixUIExtension -cultures:en-us installer.wixobj -o Astroworld.msi
 
-      - name: Upload artifacts
+      # 6️⃣ Upload MSI as artifact
+      - name: Upload MSI Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Astroworld-Windows
-          path: |
-            application/Astroworld.exe
-            *.msi
+          name: Astroworld-MSI
+          path: Astroworld.msi
+
+      # 7️⃣ Upload EXE as artifact
+      - name: Upload EXE Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Astroworld-EXE
+          path: application/Astroworld.exe
