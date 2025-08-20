@@ -1,0 +1,9 @@
+# Astroworld Application Version Info
+CompanyName=Astroworld Inc.
+FileDescription=Astroworld Astrology Software
+InternalName=Astroworld
+OriginalFilename=Astroworld.exe
+ProductName=Astroworld
+ProductVersion=1.0.0
+FileVersion=1.0.0
+LegalCopyright=© 2025 Astroworld Inc. All rights reserved.
