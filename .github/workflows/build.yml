@@ -39,29 +39,30 @@ jobs:
           if not exist application mkdir application
           copy dist\Astroworld.exe application\
 
-       # 5️⃣ Build MSI using WiX Toolset
-      - name: Compile MSI with WiX
+      # 5️⃣ Compile MSI using WiX
+      - name: Build MSI with WiX
         shell: pwsh
         run: |
           # Path to your built EXE
           $env:AstroworldDir = "$(pwd)\application"
 
-          # Compile WiX XML to object
-          candle.exe wixinstaller.wxs -dAstroworldDir="%AstroworldDir%"
+          # Compile the WiX installer (ensure correct path)
+          candle.exe wix/installer.wxs -dAstroworldDir="%AstroworldDir%"
 
-          # Link object to produce MSI
-          light.exe -ext WixUIExtension -cultures:en-us installer.wixobj -o Astroworld.msi
+          # Link to create MSI
+          light.exe -ext WixUIExtension -cultures:en-us wix/installer.wixobj -o Astroworld.msi
 
-      # 6️⃣ Upload MSI as artifact
+      # 6️⃣ Upload MSI Artifact
       - name: Upload MSI Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Astroworld-MSI
           path: Astroworld.msi
 
-      # 7️⃣ Upload EXE as artifact
+      # 7️⃣ Upload EXE Artifact
       - name: Upload EXE Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Astroworld-EXE
           path: application/Astroworld.exe
+
