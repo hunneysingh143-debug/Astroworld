@@ -29,6 +29,7 @@ jobs:
           pyinstaller --onefile --windowed --icon=assets/app.ico main.py --name Astroworld
 
       - name: Clean previous build folder
+        shell: cmd
         run: |
           if exist build rmdir /s /q build
 
