@@ -28,6 +28,10 @@ jobs:
           pip install pyinstaller
           pyinstaller --onefile --windowed --icon=assets/app.ico main.py --name Astroworld
 
+      - name: Clean previous build folder
+        run: |
+          if exist build rmdir /s /q build
+
       - name: Build Windows Installer MSI from exe file
         uses: AliceOh/CreateWindowsInstaller@1.0.0
         with:
