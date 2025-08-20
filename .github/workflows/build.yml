@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    # Explicitly pin to Windows Server 2022 (instead of windows-latest)
     runs-on: windows-2022
 
     steps:
