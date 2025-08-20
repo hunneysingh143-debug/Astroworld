@@ -47,7 +47,7 @@ jobs:
           $env:AstroworldDir = "$(pwd)\application"
 
           # Compile WiX XML to object
-          candle.exe wix/installer.wxs -dAstroworldDir="%AstroworldDir%"
+          candle.exe wixinstaller.wxs -dAstroworldDir="%AstroworldDir%"
 
           # Link object to produce MSI
           light.exe -ext WixUIExtension -cultures:en-us installer.wixobj -o Astroworld.msi
